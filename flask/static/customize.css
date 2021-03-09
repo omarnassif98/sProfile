@@ -1,0 +1,18 @@
+#contentArea{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: darkgray;
+    text-align: center;
+    position: fixed;
+}
+
+#controlBackdrop{
+    display: block;
+    margin: auto;
+    width: 20em;
+    height: 30em;
+    background-color: rgba( 255, 255, 255, 0.6);
+}

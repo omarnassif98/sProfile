@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <title>Browse Games</title>
+  <link rel="stylesheet" href={{url_for('static', filename='customize.css')}}>
+  <script src={{url_for('static', filename='helper.js')}}></script>
+  
+{% endblock %}
+
+{% block body %}
+<div id="contentArea">
+    <div id="controlBackdrop">
+       
+    </div>
+</div>
+<script src={{url_for('static', filename='customize.js')}}></script>
+  
+{% endblock %}
