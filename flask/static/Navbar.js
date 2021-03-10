@@ -36,6 +36,8 @@ document.addEventListener('click', function(event){
 firebase.auth().onAuthStateChanged(function(user) {
   console.log(user);
     if (user) {
+      var loginEvent = new Event('authComplete');
+      document.dispatchEvent(loginEvent);
       database.ref('users/'+user.uid).get().then(function(snapshot){
         console.log(snapshot);
         if(snapshot.exists()){

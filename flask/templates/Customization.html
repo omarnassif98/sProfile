@@ -10,9 +10,29 @@
 {% block body %}
 <div id="contentArea">
     <div id="controlBackdrop">
-       
+        <button id="saveButton" disabled>Submit Changes</button>
+        <div id="profileCustomizer">
+        </div>
+        <div id=Controls>
+            <div>
+                <span class="interactive" onclick="ShiftConfig('Eyes', -1)">&#x25C0;</span>
+                <span>Eyes</span>
+                <span class="interactive" onclick="ShiftConfig('Eyes', 1)">&#x25B6;</span>
+            </div>
+
+            <div>
+                <span class="interactive" onclick="ShiftConfig('Nose', -1)">&#x25C0;</span>
+                <span>Nose</span>
+                <span class="interactive" onclick="ShiftConfig('Nose', 1)">&#x25B6;</span>
+            </div>
+
+            <div>
+                <span class="interactive" onclick="ShiftConfig('Mouth', -1)">&#x25C0;</span>
+                <span>Mouth</span>
+                <span class="interactive" onclick="ShiftConfig('Mouth', 1)">&#x25B6;</span>
+            </div>
+        </div>
     </div>
 </div>
 <script src={{url_for('static', filename='customize.js')}}></script>
-  
 {% endblock %}

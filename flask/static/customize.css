@@ -12,7 +12,30 @@
 #controlBackdrop{
     display: block;
     margin: auto;
-    width: 20em;
-    height: 30em;
     background-color: rgba( 255, 255, 255, 0.6);
+    position: relative;
+}
+#saveButton{
+    position: absolute;
+    right: 0;
+    height: 30px;
+}
+#profileCustomizer{
+    width: 24em;
+    padding-top: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 0.5em;
+}
+#Controls div span{
+    cursor: auto;
+    user-select: none;
+}
+#Controls div{
+    margin: 1em;
+    font-size: 1em;
+}
+#interactive{
+    transition: all 0.1s;
+    cursor: pointer;
 }
