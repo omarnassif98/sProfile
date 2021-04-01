@@ -10,29 +10,36 @@
 {% block body %}
 <div id="contentArea">
     <div id="controlBackdrop">
-        <button id="saveButton" disabled>Submit Changes</button>
-        <div id="profileCustomizer">
-        </div>
-        <div id=Controls>
-            <div>
-                <span class="interactive" onclick="ShiftConfig('Eyes', -1)">&#x25C0;</span>
-                <span>Eyes</span>
-                <span class="interactive" onclick="ShiftConfig('Eyes', 1)">&#x25B6;</span>
+        <div id="customizationWrapper" style="display: none;"> 
+            <button id="saveButton" onclick="UpdateProfile()" disabled>Submit Changes</button>
+            <div id="profileCustomizer">
             </div>
+            <div id=Controls>
+                <div>
+                    <span class="interactive" onclick="ShiftConfig('Eyes', -1)">&#x25C0;</span>
+                    <span>Eyes</span>
+                    <span class="interactive" onclick="ShiftConfig('Eyes', 1)">&#x25B6;</span>
+                </div>
 
-            <div>
-                <span class="interactive" onclick="ShiftConfig('Nose', -1)">&#x25C0;</span>
-                <span>Nose</span>
-                <span class="interactive" onclick="ShiftConfig('Nose', 1)">&#x25B6;</span>
-            </div>
+                <div>
+                    <span class="interactive" onclick="ShiftConfig('Nose', -1)">&#x25C0;</span>
+                    <span>Nose</span>
+                    <span class="interactive" onclick="ShiftConfig('Nose', 1)">&#x25B6;</span>
+                </div>
 
-            <div>
-                <span class="interactive" onclick="ShiftConfig('Mouth', -1)">&#x25C0;</span>
-                <span>Mouth</span>
-                <span class="interactive" onclick="ShiftConfig('Mouth', 1)">&#x25B6;</span>
-            </div>
+                <div>
+                    <span class="interactive" onclick="ShiftConfig('Mouth', -1)">&#x25C0;</span>
+                    <span>Mouth</span>
+                    <span class="interactive" onclick="ShiftConfig('Mouth', 1)">&#x25B6;</span>
+                </div>
         </div>
     </div>
+        <div id="placeholderWrapper"style="display: flex; height: 26em; width: 20em; align-items: center; background-color: rgba( 255, 255, 255, 0.6);">
+            <div style="margin: auto; font-size: 1.5em;">
+                <span id='placeholderText'>Please Log In First</span>
+            </div>
+        </div>
+
 </div>
 <script src={{url_for('static', filename='customize.js')}}></script>
 {% endblock %}

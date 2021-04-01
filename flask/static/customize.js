@@ -1,9 +1,14 @@
 var currentCustomizations = {'Eyes':0, 'Nose':0, 'Mouth':0}
+var baseCustomizations = {...currentCustomizations};
 document.addEventListener('authComplete', function(){SetupPage()});
 
 async function SetupPage(){
+    document.getElementById('placeholderText').innerHTML = 'Loading... Give it a second';
     await GetCurrentProfile();
-    SetupCustomization();
+    await SetupCustomization();
+    document.getElementById('placeholderWrapper').style.display = 'none';
+    document.getElementById('customizationWrapper').style.display = 'block';
+    console.log('profile shows');
     for(cat in currentCustomizations){
         ChangeConfig(cat, currentCustomizations[cat]);
     }
@@ -14,6 +19,7 @@ function GetCurrentProfile(){
         database.ref('users/'+firebase.auth().currentUser.uid + '/profileData').get().then(function(snapshot){
             if(snapshot.exists()){
                 currentCustomizations = {...snapshot.val()};
+                baseCustomizations = {...currentCustomizations};
                 resolve();
             }else{
                 console.log('it dont exist yo');
@@ -26,16 +32,27 @@ function GetCurrentProfile(){
     });
 }
 
+function UpdateProfile(){
+    database.ref('users/'+ firebase.auth().currentUser.uid + '/profileData').set(currentCustomizations).then(function(){
+        baseCustomizations = {...currentCustomizations};
+        document.getElementById('saveButton').disabled = true;
+    });
+}
+
 async function SetupCustomization(){
+    let svg = new DOMParser().parseFromString(await ResourceRequest(window.origin + '/svg/avatar'), 'image/svg+xml').getElementsByTagName('svg')[0];
+    return new Promise((resolve) => {
     let wrapper = document.getElementById('profileCustomizer');
     console.log(wrapper);
-    let svg = new DOMParser().parseFromString(await ResourceRequest(window.origin + '/svg/avatar'), 'image/svg+xml').getElementsByTagName('svg')[0];
     console.log(svg);
     for(cat in currentCustomizations){
         let group = svg.getElementById(cat);
         group.children[currentCustomizations[cat]].style.display = 'inline'
     }
+    console.log('appending');
     wrapper.appendChild(document.createElement('div').appendChild(svg));
+    resolve();
+});
 }
 
 function ChangeConfig(category, num){
@@ -43,6 +60,7 @@ function ChangeConfig(category, num){
     if(!(category in currentCustomizations)){
         return;
     }
+    document.getElementById('saveButton').disabled = (JSON.stringify(baseCustomizations) == JSON.stringify(currentCustomizations));
     let group = document.getElementById(category);
     group.children[currentCustomizations[category]].style.display = 'none';
     currentCustomizations[category] = num;
@@ -55,7 +73,7 @@ function ShiftConfig(category, dir){
         console.log('out of bounds');
         return;
     }
-    
+    document.getElementById('saveButton').disabled = !(JSON.stringify(baseCustomizations) == JSON.stringify(currentCustomizations))
     group.children[currentCustomizations[category]].style.display = 'none';
     currentCustomizations[category] += dir;
     group.children[currentCustomizations[category]].style.display = 'inline';
