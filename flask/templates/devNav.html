@@ -8,6 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
+
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.css" />
     <script src={{url_for('static', filename='FirebaseInitializer.js')}}></script>
     
@@ -23,26 +24,17 @@
         <div id="loginDropdown" onclick="RevealDropdown(this)" style="float: right;">
             <span>Login</span>
             <div id="loginWindow" class="dropdownContent hugRight">
-                <div id="profileSetup" style="display: none;">
-                    <label for="usernameEntry">Enter Username:</label>
-                    <br>
-                    <input type="text" id="usernameEntry" name="usernameEntry" class="lineInput" placeholder="Enter Username" oninput="UpdateInputProperty(this)">
-                    <br>
-                    <button id="b_usernameEntry" class="inputDependant" onclick="SubmitProfile(this.id)" disabled>Continue</button>
-                </div>
                 <div id="firebaseui-auth-container"></div>
             </div>
         </div>
         <div id="profileDropdown" onclick="RevealDropdown(this)" style="display: none; float: right;">
-            <span>Profile</span>
+            <span>Account</span>
             <div class="dropdownContent hugRight">
-                <span id="user">UserInfo</span>
-                <span id="privacy" onclick="UpdatePrivacy(this)" style="cursor: default;">Public: True</span>
                 <span onclick="Logout()">Logout</span>
             </div>
         </div>
     </div>    
-    <script src={{url_for('static', filename='NavbarPlayer.js')}}></script>
+    <script src={{url_for('static', filename='NavbarDev.js')}}></script>
     {% block body %}
     {% endblock %}
 </body>

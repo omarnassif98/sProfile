@@ -1,1 +1,22 @@
 {% extends 'base.html' %}
+
+{% block header %}
+  <title>sProfile home</title>
+  <link rel="stylesheet" href={{url_for('static', filename='landing.css')}}>
+  <script src={{url_for('static', filename='landing.js')}}></script>  
+{% endblock %}
+
+{% block body %}
+<div id="contentArea">
+  <div class="contentPage">
+    
+    <h1>Welcome to sProfile</h1>
+    <h2 id="placeholder">Loading Games</h2>
+   <div id= "listingWrapper">
+    </div>
+
+   
+  </div>
+</div>
+
+{% endblock %}

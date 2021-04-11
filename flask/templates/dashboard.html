@@ -1,0 +1,72 @@
+{% extends 'devNav.html' %}
+
+{% block header %}
+  <title>Developer Dashboard</title>
+  <link rel="stylesheet" href={{url_for('static', filename='dashboard.css')}}>
+  <script src={{url_for('static', filename='helper.js')}}></script>  
+{% endblock %}
+
+{% block body %}
+<div id="contentArea">
+  <div class="contentPage">
+    
+    <h1>Manage games</h1>
+    <h2 id="placeholder">Please Log into a developer account first</h2>
+   <div id= listingWrapper>
+    </div>
+
+    <button id="createBtn">Create listing</button>
+  </div>
+  <div class="contentPage">
+    <h1>Learn the basics</h1>
+
+  </div>
+</div>
+
+<div id="overlay">
+  <div id="window">
+    <div id="create" style="display: none;">
+      <h2>Create listing</h2>
+      <div>
+        <label name="title" style="display: block;">Title:</label>
+        <input type="text" name="title" id="title" placeholder="Title" oninput="SetText(this,0)">
+      </div>
+      <div>
+        <label name="desc" style="display: block;">Description:</label>
+        <textarea id="desc" placeholder="Description" style="resize: none; vertical-align: top;" oninput="SetText(this,1)"></textarea>
+      </div>
+      <div>
+        <input title="Upload Artwork" type="file" name="createArtwork" accept="image/*" id="createArtwork" onchange="FileUpload(this, 2)" style="display: none;"></input>  
+        <button><label for="createArtwork">Upload Artwork</label></button>
+        <input title="Upload Gamefiles" type="file" name="createGamefile" accept=".exe" id="createGamefile" onchange="FileUpload(this, 3)" style="display: none;"></input>
+        <button><label for="createGamefile">Upload Gamefiles</label></button>
+
+      </div>
+      <button id="submitListingsBtn" onclick="SubmitListingCreation()" style="color: forestgreen; float: right;">Create Game</button>
+      </textarea>
+      
+    </div>
+    <div id="edit" style="display: none;">
+      <h2>Edit listing</h2>
+      <div>
+        <label style="display: block;">Title:</label>
+        <input name="title" id="editTitle" placeholder="Title" oninput="SetText(this,0)" >
+      </div>
+      <div>
+        <label style="display: block;">Description:</label>
+        <textarea id="editDesc" oninput="SetText(this,1)" placeholder="Description" style="resize: none; vertical-align: top;"></textarea>
+      </div>
+      <div>
+        <button><label for="editArt">Upload Artwork</label></button>
+        <input style="display: none;" id="editArt" name="editArt" accept="image/*" type="file" onchange="FileUpload(this, 2)"></input>
+        <button><label for="editGame">Upload Gamefiles</label></button>
+        <input style="display: none;" id="editGame" name="editGame" accept=".exe" type="file" onchange="FileUpload(this, 3)"></input>
+      </div>
+      <button style="margin: auto; color: forestgreen; display: block;" onclick="UpdateListing()">Submit Changes</button>
+      <button style="color: red; float: right;" onclick="DeleteListing()">Delete Game</button>
+      </textarea>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

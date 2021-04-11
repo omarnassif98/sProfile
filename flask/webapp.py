@@ -14,6 +14,10 @@ def ProfileView(profileID):
 def Customization():
     return render_template('Customization.html')
 
+@app.route('/dev')
+def Dashboard():
+    return render_template('dashboard.html')
+
 @app.route('/svg/<fname>')
 def SVGTest(fname):
     return send_from_directory('static', fname+'.svg')

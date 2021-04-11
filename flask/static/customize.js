@@ -1,7 +1,7 @@
 var currentCustomizations = {'Eyes':0, 'Nose':0, 'Mouth':0}
 var baseCustomizations = {...currentCustomizations};
 document.addEventListener('authComplete', function(){SetupPage()});
-
+document.addEventListener('improperAuth', function(){document.getElementById('placeholderText').innerHTML = 'You are logged into a developer account. Please Log into a Player account'})
 async function SetupPage(){
     document.getElementById('placeholderText').innerHTML = 'Loading... Give it a second';
     await GetCurrentProfile();
@@ -60,7 +60,6 @@ function ChangeConfig(category, num){
     if(!(category in currentCustomizations)){
         return;
     }
-    document.getElementById('saveButton').disabled = (JSON.stringify(baseCustomizations) == JSON.stringify(currentCustomizations));
     let group = document.getElementById(category);
     group.children[currentCustomizations[category]].style.display = 'none';
     currentCustomizations[category] = num;
@@ -73,8 +72,10 @@ function ShiftConfig(category, dir){
         console.log('out of bounds');
         return;
     }
-    document.getElementById('saveButton').disabled = !(JSON.stringify(baseCustomizations) == JSON.stringify(currentCustomizations))
+    
+    console.log("AYYO WHAT THE FUCK");
     group.children[currentCustomizations[category]].style.display = 'none';
     currentCustomizations[category] += dir;
     group.children[currentCustomizations[category]].style.display = 'inline';
+    document.getElementById('saveButton').disabled = (JSON.stringify(baseCustomizations) === JSON.stringify(currentCustomizations))
 }

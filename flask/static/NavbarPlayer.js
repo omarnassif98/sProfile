@@ -2,7 +2,13 @@ var currentActiveDropdown = null;
 var uiConfig = {
   callbacks:{signInSuccessWithAuthResult: function(authResult) {
     console.log(authResult);
-    
+    if(authResult.additionalUserInfo.isNewUser == true){
+      console.log('New user wtf ' + authResult.user.uid);
+      database.ref('users/'+authResult.user.uid).set({"date joined":Date.now()}).then(function(){ return false;})
+  }else{
+      location.reload();
+      return false;
+  }
     return false;
   }
 },
@@ -35,19 +41,18 @@ document.addEventListener('click', function(event){
 firebase.auth().onAuthStateChanged(function(user) {
   console.log(user);
     if (user) {
-      var loginEvent = new Event('authComplete');
-      document.dispatchEvent(loginEvent);
       database.ref('users/'+user.uid).get().then(function(snapshot){
-        console.log(snapshot);
-        if(snapshot.exists()){
+        console.log(snapshot.val()['date joined']);
+        if(snapshot.val().username){
             sessionStorage.setItem('userName', snapshot.val().username);
-            
+            var loginEvent = new Event('authComplete');
+            document.dispatchEvent(loginEvent);
             database.ref('reverseLookup/'+sessionStorage.getItem('userName')+'/publicProfile').get().then(function(privacy){
-              console.log(privacy.val());
-              console.log(typeof(privacy.val()));
-              let textVal = privacy.val() ? 'TRUE' : 'FALSE';
-              sessionStorage.setItem('privacy', textVal);
-              AddProfileDropdown();
+            console.log(privacy.val());
+            console.log(typeof(privacy.val()));
+            let textVal = privacy.val() ? 'TRUE' : 'FALSE';
+            sessionStorage.setItem('privacy', textVal);
+            AddProfileDropdown();
             });
         }else{
           document.getElementById('loginWindow').style.display =  'block';
@@ -56,6 +61,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         }
       }).catch(function(error){
         console.log(error);
+        AddProfileDropdown(false);
+        document.dispatchEvent(new Event('improperAuth'));
     });
     }
   }
@@ -76,12 +83,20 @@ function ClearDropdown(){
   currentActiveDropdown = null;
 }
 
-function AddProfileDropdown(){
+function Logout(){
+  firebase.auth().signOut().then(location.reload());
+}
+
+function AddProfileDropdown(player = true){
     document.getElementById('loginDropdown').style.display = 'none';
     document.getElementById('profileDropdown').style.display = 'block';
-    document.getElementById('user').innerHTML = sessionStorage.getItem('userName');
-    document.getElementById('privacy').innerHTML = 'Public: ' + sessionStorage.getItem('privacy');
-    
+    if(player == true){
+      document.getElementById('user').innerHTML = sessionStorage.getItem('userName');
+      document.getElementById('privacy').innerHTML = 'Public: ' + sessionStorage.getItem('privacy');
+    }else{
+      document.getElementById('user').style.display = 'none';
+      document.getElementById('privacy').style.display = 'none';
+    }
 }
 
 function UpdateInputProperty(element){
@@ -93,13 +108,16 @@ function UpdateInputProperty(element){
 function SubmitProfile(buttonTag){
     console.log(document.getElementById(buttonTag));
     let user = document.getElementById(buttonTag.split('_')[1]).value;
-    database.ref('reverseLookup/'+user).set({"uid":firebase.auth().currentUser.uid, "publicProfile":true});
+    console.log('WHAT THE FUCK ' + user);
+    database.ref('reverseLookup/'+user).set({"uid":firebase.auth().currentUser.uid, "publicProfile":true, "email":firebase.auth().currentUser.email}).then(
     database.ref('users/'+ firebase.auth().currentUser.uid).set({username:document.getElementById(buttonTag.split('_')[1]).value}).then(function(){
       document.getElementById(buttonTag).parentElement.style.display = 'none'
       sessionStorage.setItem('userName', document.getElementById(buttonTag.split('_')[1]).value);
       sessionStorage.setItem('privacy', 'TRUE');
+      var loginEvent = new Event('authComplete');
+      document.dispatchEvent(loginEvent);
       AddProfileDropdown()
-    });
+    }));
 }
 
 function UpdatePrivacy(element){

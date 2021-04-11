@@ -13,3 +13,4 @@ if (!firebase.apps.length){
 }
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
 var database = firebase.database();
+var storage = firebase.storage();

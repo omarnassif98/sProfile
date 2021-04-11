@@ -1,0 +1,49 @@
+#contentArea{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: darkgray;
+    text-align: center;
+    position: fixed;
+
+}
+
+.contentPage{
+    background-color: antiquewhite;
+    box-shadow: 15px 10px rgba(0,0,0,0.2);
+    width: 75%;
+    margin: auto;
+}
+
+.contentPage h1{
+    text-align: left;
+    padding: 0.4em;
+}
+
+.listing{
+    margin: auto;
+    width: 400px;
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 4px;
+}
+.listing >div{
+    text-align: center;
+    margin: 1em;
+}
+
+.listing > button{
+    width: 100%;
+    padding-top: .5em;
+    margin-top: 1em;
+}
+#listingWrapper{
+    display: flex;
+    margin: 5px;
+}
+#placeholder{
+    background-color: white;
+    width: max-content;
+    padding: 15px;
+    margin: auto;
+}
