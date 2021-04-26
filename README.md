@@ -26,7 +26,7 @@ A web-enabled game distribution and player profile management platform.
 5. Download sProfile games
 	* View gallery of game listings 
 ## Getting Started
-**To view instrucions on how to build and deploy this web application on a website, look at the deployment branch of this repo.
+**To view instrucions on how to build and deploy this web application on a website, look at the [deployment branch](https://github.com/omarnassif98/sProfile/tree/deployment) of this repo.
 ### Installation and Setup Locally
 1. Install [Docker](https://docs.docker.com/get-docker/) if you haven't already.
 2. Clone this repository.
