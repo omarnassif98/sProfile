@@ -26,7 +26,8 @@ A web-enabled game distribution and player profile management platform.
 5. Download sProfile games
 	* View gallery of game listings 
 ## Getting Started
-### Installation and Setup
+**To view instrucions on how to build and deploy this web application on a website, look at the deployment branch of this repo.
+### Installation and Setup Locally
 1. Install [Docker](https://docs.docker.com/get-docker/) if you haven't already.
 2. Clone this repository.
 		
@@ -36,6 +37,7 @@ A web-enabled game distribution and player profile management platform.
 3. Build the docker image.
 
 		> docker build flask -t webapp
+
 
 ### Run the docker image locally
 1. Run the image you have just created
@@ -53,4 +55,3 @@ https://youtu.be/q298ver7uMM
 * Omar Abou Nassif Mourad (abounassifmourado@wit.edu), Team Lead
 * Christopher Pizani (pizanic@wit.edu), Developer
 * Leonard Litvak (litvakl@wit.edu), Developer
-
